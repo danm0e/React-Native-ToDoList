@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-project1",
-    "slug": "rn-project1",
+    "name": "React Native - To Do List",
+    "slug": "react-native-to-do",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
