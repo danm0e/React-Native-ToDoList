@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, TextInput } from 'react-native';
+import Header from './components/Header'
 
 export default function App() {
   const [newGoal, setNewGoal] = useState('')
@@ -9,7 +10,7 @@ export default function App() {
     setNewGoal(value)
   }
 
-  const handleAdd = () => {
+  const handleOnAdd = () => {
     newGoal.length && setGoals(currentGoals => [
       ...currentGoals,
       // using math random to mock key
@@ -19,18 +20,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={{ ...styles.header, ...styles.row }}>
-        <TextInput
-          style={styles.input}
-          placeholder="Add a Goal"
-          onChangeText={handleOnChange}
-          value={newGoal}
-        />
-        <Button
-          title="Add"
-          onPress={handleAdd}
-        />
-      </View>
+      <Header
+        value={newGoal}
+        onChange={handleOnChange}
+        onAdd={handleOnAdd}
+      />
       <FlatList
         keyExtractor={item => item.id}
         style={styles.row}
@@ -52,11 +46,6 @@ const styles = StyleSheet.create({
   row: {
     paddingHorizontal: 15,
     paddingVertical: 10,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#1B2737'
   },
   input: {
     borderColor: '#ccc',
