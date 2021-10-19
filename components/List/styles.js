@@ -7,10 +7,19 @@ const styles = StyleSheet.create({
 	},
 
 	item: {
-		borderRadius: 7,
-		padding: 10,
 		backgroundColor: '#f1f1f1',
-		marginBottom: 5
+		borderRadius: 7,
+		flexDirection: 'row',
+		marginBottom: 5,
+		padding: 10,
+		alignItems: 'center'
+	},
+
+	itemNumber: {
+		marginRight: 10,
+		fontSize: 18,
+		fontWeight: 'bold',
+		color: '#1D8DEE'
 	}
 });
 

@@ -10,6 +10,7 @@ const List = ({ goals }) => (
 		data={goals}
 		renderItem={data => (
 			<View style={styles.item}>
+				<Text style={styles.itemNumber}>{data.index + 1}</Text>
 				<Text>{data.item.value}</Text>
 			</View>
 		)}
