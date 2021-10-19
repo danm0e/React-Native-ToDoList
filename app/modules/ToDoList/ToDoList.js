@@ -12,8 +12,10 @@ const ToDoList = () => {
 		setNewGoal(value)
 	}
 
+	const isValidGoal = newGoal.length && !goals.find(goal => goal.value === newGoal)
+
 	const handleOnAdd = () => {
-		newGoal.length && setGoals(currentGoals => [
+		isValidGoal && setGoals(currentGoals => [
 			...currentGoals,
 			// using math random to mock key
 			{ id: Math.random().toString(), value: newGoal }
