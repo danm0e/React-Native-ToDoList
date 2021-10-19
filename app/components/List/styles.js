@@ -19,11 +19,18 @@ const styles = StyleSheet.create({
 	},
 
 	itemNumber: {
+		alignSelf: 'flex-start',
 		color: '#1D8DEE',
+		flexBasis: 20,
 		fontSize: 18,
 		fontWeight: 'bold',
 		marginRight: 10,
 		minWidth: 20,
+	},
+
+	itemText: {
+		flex: 1,
+		flexWrap: 'wrap',
 	},
 
 	empty: {
