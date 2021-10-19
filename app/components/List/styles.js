@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
 	list: {
+		height: '100%',
 		paddingHorizontal: 15,
 		paddingVertical: 10,
 	},
@@ -9,9 +10,11 @@ const styles = StyleSheet.create({
 	item: {
 		alignItems: 'center',
 		backgroundColor: '#f1f1f1',
+		borderLeftColor: '#1D8DEE',
+		borderLeftWidth: 7,
 		borderRadius: 7,
 		flexDirection: 'row',
-		marginBottom: 5,
+		marginBottom: 10,
 		padding: 10,
 	},
 
@@ -21,6 +24,23 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		marginRight: 10,
 		minWidth: 20,
+	},
+
+	empty: {
+		alignItems: 'center',
+		height: '95%',
+		justifyContent: 'center',
+	},
+
+	emptyHeader: {
+		color: '#1D8DEE',
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginBottom: 10,
+	},
+
+	emptyText: {
+		color: '#777'
 	}
 });
 
