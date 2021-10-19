@@ -7,19 +7,20 @@ const styles = StyleSheet.create({
 	},
 
 	item: {
+		alignItems: 'center',
 		backgroundColor: '#f1f1f1',
 		borderRadius: 7,
 		flexDirection: 'row',
 		marginBottom: 5,
 		padding: 10,
-		alignItems: 'center'
 	},
 
 	itemNumber: {
-		marginRight: 10,
+		color: '#1D8DEE',
 		fontSize: 18,
 		fontWeight: 'bold',
-		color: '#1D8DEE'
+		marginRight: 10,
+		minWidth: 20,
 	}
 });
 
