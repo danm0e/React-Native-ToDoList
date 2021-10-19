@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, TextInput } from 'react-native';
-import Header from './components/Header'
+import Header from '@components/Header'
 
 export default function App() {
   const [newGoal, setNewGoal] = useState('')

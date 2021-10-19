@@ -8,10 +8,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		backgroundColor: '#1B2737'
 	},
+
 	input: {
 		borderColor: '#ccc',
 		borderRadius: 7,
-		borderWidth: 1,
+		borderWidth: 2,
 		padding: 10,
 		width: '85%',
 		backgroundColor: 'white'
