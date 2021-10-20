@@ -8,6 +8,7 @@ const spacingMD = theme.spacing.md
 const inputBgColor = palette.white
 const inputBorderColor = palette.neutral
 const themeRadius = theme.radius.md
+const buttonColor = palette.primary
 
 const styles = StyleSheet.create({
   header: {
@@ -25,6 +26,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: spacingMD,
     width: '85%'
+  },
+
+  button: {
+    color: buttonColor
   }
 })
 

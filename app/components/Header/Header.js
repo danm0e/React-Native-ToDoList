@@ -14,6 +14,7 @@ const Header = ({ value, onChange, onAdd }) => (
     <Button
       title='Add'
       onPress={onAdd}
+      color={styles.button.color}
     />
   </View>
 )
