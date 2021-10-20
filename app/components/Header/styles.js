@@ -1,21 +1,29 @@
 import { StyleSheet } from 'react-native'
 import { palette } from '@assets/styles/colors'
+import theme from '@assets/styles/theme'
+
+const headerBgColor = palette.secondary
+const spacingLG = theme.spacing.lg
+const spacingMD = theme.spacing.md
+const inputBgColor = palette.white
+const inputBorderColor = palette.neutral
+const themeRadius = theme.radius.md
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: palette.secondary,
+    backgroundColor: headerBgColor,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    paddingVertical: 10
+    paddingHorizontal: spacingLG,
+    paddingVertical: spacingMD
   },
 
   input: {
-    backgroundColor: palette.white,
-    borderColor: palette.neutral,
-    borderRadius: 7,
+    backgroundColor: inputBgColor,
+    borderColor: inputBorderColor,
+    borderRadius: themeRadius,
     borderWidth: 2,
-    padding: 10,
+    padding: spacingMD,
     width: '85%'
   }
 })

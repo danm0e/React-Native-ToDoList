@@ -1,31 +1,39 @@
 import { StyleSheet } from 'react-native'
 import { palette } from '@assets/styles/colors'
+import theme from '@assets/styles/theme'
+
+const itemBgColor = palette.gray[10]
+const itemHighlightColor = palette.primary
+const radius = theme.radius.sm
+const spacingLG = theme.spacing.lg
+const spacingMD = theme.spacing.md
+const emptyTextColor = palette.gray[50]
 
 const styles = StyleSheet.create({
   list: {
     height: '100%',
-    paddingHorizontal: 15,
-    paddingVertical: 10
+    paddingHorizontal: spacingLG,
+    paddingVertical: spacingMD
   },
 
   item: {
     alignItems: 'center',
-    backgroundColor: palette.gray[10],
-    borderLeftColor: palette.primary,
-    borderLeftWidth: 5,
-    borderRadius: 5,
+    backgroundColor: itemBgColor,
+    borderLeftColor: itemHighlightColor,
+    borderLeftWidth: radius,
+    borderRadius: radius,
     flexDirection: 'row',
-    marginBottom: 10,
-    padding: 10
+    marginBottom: spacingMD,
+    padding: spacingMD
   },
 
   itemNumber: {
     alignSelf: 'flex-start',
-    color: palette.primary,
+    color: itemHighlightColor,
     flexBasis: 20,
     fontSize: 18,
     fontWeight: 'bold',
-    marginRight: 10,
+    marginRight: spacingMD,
     minWidth: 20
   },
 
@@ -41,14 +49,14 @@ const styles = StyleSheet.create({
   },
 
   emptyHeader: {
-    color: palette.primary,
+    color: itemHighlightColor,
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: spacingMD
   },
 
   emptyText: {
-    color: palette.gray[50]
+    color: emptyTextColor
   }
 })
 
