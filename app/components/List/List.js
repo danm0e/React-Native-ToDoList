@@ -4,30 +4,17 @@ import PropTypes from 'prop-types'
 import styles from './styles'
 
 const List = ({ goals }) => (
-  goals.length
-    ? (
-      <FlatList
-        style={styles.list}
-        data={goals}
-        keyExtractor={goal => goal.id}
-        renderItem={data => (
-          <View style={styles.item}>
-            <Text style={styles.itemNumber}>{data.index + 1}</Text>
-            <Text style={styles.itemText}>{data.item.value}</Text>
-          </View>
-        )}
-      />
-      )
-    : (
-      <View style={styles.empty}>
-        <Text style={styles.emptyHeader}>
-          No goals!
-        </Text>
-        <Text style={styles.emptyText}>
-          Please add some to see them here.
-        </Text>
+  <FlatList
+    style={styles.list}
+    data={goals}
+    keyExtractor={goal => goal.id}
+    renderItem={data => (
+      <View style={styles.item}>
+        <Text style={styles.itemNumber}>{data.index + 1}</Text>
+        <Text style={styles.itemText}>{data.item.value}</Text>
       </View>
-      )
+    )}
+  />
 )
 
 List.propTypes = {

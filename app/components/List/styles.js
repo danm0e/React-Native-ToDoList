@@ -7,7 +7,6 @@ const itemHighlightColor = palette.primary
 const radius = theme.radius.sm
 const spacingLG = theme.spacing.lg
 const spacingMD = theme.spacing.md
-const emptyTextColor = palette.gray[50]
 
 const styles = StyleSheet.create({
   list: {
@@ -40,23 +39,6 @@ const styles = StyleSheet.create({
   itemText: {
     flex: 1,
     flexWrap: 'wrap'
-  },
-
-  empty: {
-    alignItems: 'center',
-    height: '95%',
-    justifyContent: 'center'
-  },
-
-  emptyHeader: {
-    color: itemHighlightColor,
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: spacingMD
-  },
-
-  emptyText: {
-    color: emptyTextColor
   }
 })
 
