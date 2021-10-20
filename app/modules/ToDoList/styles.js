@@ -1,9 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
-	container: {
-		paddingVertical: 50,
-	}
-});
+  container: {
+    paddingVertical: 50
+  }
+})
 
-export default styles;
+export default styles
