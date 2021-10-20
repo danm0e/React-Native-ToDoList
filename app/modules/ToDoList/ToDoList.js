@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import Header from '@components/Header'
 import List from '@components/List'
+import EmptyMessage from '@components/EmptyMessage'
 import styles from './styles'
 
 const ToDoList = () => {
@@ -29,7 +30,9 @@ const ToDoList = () => {
         onChange={handleOnChange}
         onAdd={handleOnAdd}
       />
-      <List goals={goals} />
+      {goals.length
+        ? <List goals={goals} />
+        : <EmptyMessage />}
     </View>
   )
 }
