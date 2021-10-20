@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native'
+import { palette } from '@assets/styles/colors'
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#1B2737',
+    backgroundColor: palette.secondary,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 15,
@@ -10,8 +11,8 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    backgroundColor: 'white',
-    borderColor: '#ccc',
+    backgroundColor: palette.white,
+    borderColor: palette.neutral,
     borderRadius: 7,
     borderWidth: 2,
     padding: 10,

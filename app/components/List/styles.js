@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { palette } from '@assets/styles/colors'
 
 const styles = StyleSheet.create({
   list: {
@@ -9,8 +10,8 @@ const styles = StyleSheet.create({
 
   item: {
     alignItems: 'center',
-    backgroundColor: '#f1f1f1',
-    borderLeftColor: '#1D8DEE',
+    backgroundColor: palette.gray[10],
+    borderLeftColor: palette.primary,
     borderLeftWidth: 5,
     borderRadius: 5,
     flexDirection: 'row',
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
 
   itemNumber: {
     alignSelf: 'flex-start',
-    color: '#1D8DEE',
+    color: palette.primary,
     flexBasis: 20,
     fontSize: 18,
     fontWeight: 'bold',
@@ -40,14 +41,14 @@ const styles = StyleSheet.create({
   },
 
   emptyHeader: {
-    color: '#1D8DEE',
+    color: palette.primary,
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10
   },
 
   emptyText: {
-    color: '#777'
+    color: palette.gray[50]
   }
 })
 

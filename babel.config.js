@@ -23,7 +23,8 @@ module.exports = function (api) {
           ],
           alias: {
             '@modules': './app/modules',
-            '@components': './app/components'
+            '@components': './app/components',
+            '@assets': './app/assets'
           }
         }
       ]
