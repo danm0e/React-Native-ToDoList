@@ -19,9 +19,20 @@ const ToDoList = () => {
     // only add the goal if it's not empty or doesn't already exist
     isValidGoal && setGoals(currentGoals => [
       ...currentGoals,
-      // using math random to mock key
-      { id: Math.random().toString(), value: newGoal }
+      {
+        id: Math.random().toString(), // mocking an id for key
+        value: newGoal,
+        isComplete: false
+      }
     ])
+  }
+
+  const handleOnComplete = idx => {
+    const goalsCopy = [...goals]
+    const updatedGoal = goalsCopy[idx]
+    updatedGoal.isComplete = !updatedGoal.isComplete
+    goalsCopy.splice(idx, 1, updatedGoal)
+    setGoals(goalsCopy)
   }
 
   return (
@@ -32,7 +43,7 @@ const ToDoList = () => {
         onAdd={handleOnAdd}
       />
       {goals.length
-        ? <List goals={goals} />
+        ? <List goals={goals} onComplete={handleOnComplete} />
         : <EmptyMessage />}
     </View>
   )

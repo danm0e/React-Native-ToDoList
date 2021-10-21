@@ -1,19 +1,30 @@
 import React from 'react'
 import { Text, View, FlatList } from 'react-native'
+import { CheckBox } from 'react-native-elements'
 import PropTypes from 'prop-types'
 import styles from './styles'
 
-const List = ({ goals }) => (
+const { list, item, itemComplete, itemNumber, itemText, itemTextComplete } = styles
+
+const List = ({ goals, onComplete }) => (
   <FlatList
-    style={styles.list}
+    style={list}
     data={goals}
     keyExtractor={goal => goal.id}
-    renderItem={data => (
-      <View style={styles.item}>
-        <Text style={styles.itemNumber}>{data.index + 1}</Text>
-        <Text style={styles.itemText}>{data.item.value}</Text>
-      </View>
-    )}
+    renderItem={data => {
+      const { index, item: { value, isComplete } } = data
+
+      return (
+        <View style={isComplete ? itemComplete : item}>
+          <Text style={itemNumber}>{index + 1}</Text>
+          <Text style={isComplete ? itemTextComplete : itemText}>{value}</Text>
+          <CheckBox
+            checked={isComplete}
+            onPress={() => onComplete(index)}
+          />
+        </View>
+      )
+    }}
   />
 )
 
@@ -23,7 +34,8 @@ List.propTypes = {
       id: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  onComplete: PropTypes.func.isRequired
 }
 
 export default List
