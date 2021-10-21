@@ -22,13 +22,10 @@ describe('modules/ToDoList', () => {
 
   describe('When a goal is added', () => {
     test('It should render the correct item', () => {
-      const { getByPlaceholderText, getByDisplayValue, getByTestId, getByText } = utils
+      const { getByPlaceholderText, getByTestId, getByText } = utils
 
       const input = getByPlaceholderText(/Add a goal/i)
       fireEvent.changeText(input, 'some goal')
-
-      const changedInput = getByDisplayValue(/some goal/i)
-      expect(changedInput).toBeDefined()
 
       const button = getByTestId(/Add button/i)
       fireEvent.press(button)

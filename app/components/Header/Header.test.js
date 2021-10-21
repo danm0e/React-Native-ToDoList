@@ -6,17 +6,11 @@ const onChangeSpy = jest.fn()
 const onAddSpy = jest.fn()
 
 describe('components/Header', () => {
-  let utils
-
-  beforeEach(() => {
-    utils = render(
-      <Header onChange={onChangeSpy} onAdd={onAddSpy} />
-    )
-  })
-
   describe('When the component is rendered', () => {
     test('It should render the correct elements', () => {
-      const { getByPlaceholderText, getByText } = utils
+      const { getByPlaceholderText, getByText } = render(
+        <Header onChange={onChangeSpy} onAdd={onAddSpy} />
+      )
 
       const input = getByPlaceholderText(/Add a goal/i)
       const button = getByText(/Add/i)
