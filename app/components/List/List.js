@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, View, FlatList } from 'react-native'
+import { Text, View, FlatList, TouchableOpacity } from 'react-native'
 import { CheckBox } from 'react-native-elements'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 import PropTypes from 'prop-types'
 import styles from './styles'
 
-const { list, item, itemComplete, itemNumber, itemText, itemTextComplete } = styles
+const { list, item, itemComplete, itemNumber, itemText, itemTextComplete, deleteBtn } = styles
 
 const List = ({ items, setItems }) => {
   const handleOnComplete = idx => {
@@ -15,6 +16,20 @@ const List = ({ items, setItems }) => {
     setItems(itemsCopy)
   }
 
+  const handleOnDelete = idx => {
+    const itemsCopy = [...items]
+    itemsCopy.splice(idx, 1)
+    setItems(itemsCopy)
+  }
+
+  const handleOnSwipe = idx => (
+    <TouchableOpacity onPress={() => handleOnDelete(idx)}>
+      <View style={deleteBtn}>
+        <Text>Delete</Text>
+      </View>
+    </TouchableOpacity>
+  )
+
   return (
     <FlatList
       style={list}
@@ -24,15 +39,17 @@ const List = ({ items, setItems }) => {
         const { index, item: { value, isComplete } } = data
 
         return (
-          <View style={isComplete ? itemComplete : item}>
-            <Text style={itemNumber}>{index + 1}</Text>
-            <Text style={isComplete ? itemTextComplete : itemText}>{value}</Text>
-            <CheckBox
-              checked={isComplete}
-              onPress={() => handleOnComplete(index)}
-              testID='Toggle Complete'
-            />
-          </View>
+          <Swipeable renderRightActions={() => handleOnSwipe(index)}>
+            <View style={isComplete ? itemComplete : item}>
+              <Text style={itemNumber}>{index + 1}</Text>
+              <Text style={isComplete ? itemTextComplete : itemText}>{value}</Text>
+              <CheckBox
+                checked={isComplete}
+                onPress={() => handleOnComplete(index)}
+                testID='Toggle Complete'
+              />
+            </View>
+          </Swipeable>
         )
       }}
     />

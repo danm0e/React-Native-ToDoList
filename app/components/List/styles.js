@@ -8,6 +8,7 @@ const radius = theme.radius.sm
 const spacingSM = theme.spacing.sm
 const spacingMD = theme.spacing.md
 const spacingLG = theme.spacing.lg
+const deleteBtnBgColor = palette.danger
 
 const itemStyles = {
   alignItems: 'center',
@@ -54,6 +55,14 @@ const styles = StyleSheet.create({
   itemTextComplete: {
     flex: 1,
     textDecorationLine: 'line-through'
+  },
+
+  deleteBtn: {
+    backgroundColor: deleteBtnBgColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: '86%'
   }
 })
 
