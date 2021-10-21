@@ -16,6 +16,7 @@ const ToDoList = () => {
   const isValidGoal = newGoal.length && !goals.find(goal => goal.value === newGoal)
 
   const handleOnAdd = () => {
+    // only add the goal if it's not empty or doesn't already exist
     isValidGoal && setGoals(currentGoals => [
       ...currentGoals,
       // using math random to mock key
