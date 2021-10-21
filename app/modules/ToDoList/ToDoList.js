@@ -27,14 +27,6 @@ const ToDoList = () => {
     ])
   }
 
-  const handleOnComplete = idx => {
-    const goalsCopy = [...goals]
-    const updatedGoal = goalsCopy[idx]
-    updatedGoal.isComplete = !updatedGoal.isComplete
-    goalsCopy.splice(idx, 1, updatedGoal)
-    setGoals(goalsCopy)
-  }
-
   return (
     <View style={styles.container}>
       <Header
@@ -43,7 +35,7 @@ const ToDoList = () => {
         onAdd={handleOnAdd}
       />
       {goals.length
-        ? <List goals={goals} onComplete={handleOnComplete} />
+        ? <List items={goals} setItems={setGoals} />
         : <EmptyMessage />}
     </View>
   )

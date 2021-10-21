@@ -3,9 +3,15 @@ import { render, fireEvent } from '@testing-library/react-native'
 import ToDoList from './ToDoList'
 
 describe('modules/ToDoList', () => {
-  describe('When the module is rendered', () => {
+  let utils
+
+  beforeEach(() => {
+    utils = render(<ToDoList />)
+  })
+
+  describe('When there are no goals', () => {
     test('It should render the header and empty message', () => {
-      const { getByPlaceholderText, getByText } = render(<ToDoList />)
+      const { getByPlaceholderText, getByText } = utils
       const input = getByPlaceholderText(/Add a goal/i)
       const emptyMessage = getByText(/No goals/i)
 
@@ -15,8 +21,8 @@ describe('modules/ToDoList', () => {
   })
 
   describe('When a goal is added', () => {
-    test('It should display the correct item in the list', () => {
-      const { getByPlaceholderText, getByDisplayValue, getByTestId, getByText } = render(<ToDoList />)
+    test('It should render the correct item', () => {
+      const { getByPlaceholderText, getByDisplayValue, getByTestId, getByText } = utils
 
       const input = getByPlaceholderText(/Add a goal/i)
       fireEvent.changeText(input, 'some goal')
