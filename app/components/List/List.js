@@ -1,11 +1,20 @@
 import React from 'react'
 import { Text, View, FlatList, TouchableOpacity } from 'react-native'
-import { CheckBox } from 'react-native-elements'
+import { CheckBox, Icon } from 'react-native-elements'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import PropTypes from 'prop-types'
 import styles from './styles'
 
-const { list, item, itemComplete, itemNumber, itemText, itemTextComplete, deleteBtn } = styles
+const {
+  list,
+  item,
+  itemComplete,
+  itemNumber,
+  itemText,
+  itemTextComplete,
+  deleteBtn,
+  deleteBtnText
+} = styles
 
 const List = ({ items, setItems }) => {
   const handleOnComplete = idx => {
@@ -25,7 +34,13 @@ const List = ({ items, setItems }) => {
   const handleOnSwipe = idx => (
     <TouchableOpacity onPress={() => handleOnDelete(idx)}>
       <View style={deleteBtn}>
-        <Text>Delete</Text>
+        <Icon
+          color='#FFF'
+          name='delete-forever'
+          size={25}
+          type='material'
+        />
+        <Text style={deleteBtnText}>Delete</Text>
       </View>
     </TouchableOpacity>
   )

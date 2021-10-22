@@ -58,11 +58,18 @@ const styles = StyleSheet.create({
   },
 
   deleteBtn: {
-    backgroundColor: deleteBtnBgColor,
-    justifyContent: 'center',
     alignItems: 'center',
-    width: 80,
-    height: '86%'
+    backgroundColor: deleteBtnBgColor,
+    borderRadius: theme.radius.sm,
+    color: palette.white,
+    height: '86%',
+    justifyContent: 'center',
+    marginLeft: 10,
+    width: 80
+  },
+
+  deleteBtnText: {
+    color: palette.white
   }
 })
 
