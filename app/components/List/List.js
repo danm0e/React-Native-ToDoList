@@ -1,24 +1,18 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
-import { CheckBox, ListItem, Button } from 'react-native-elements'
+import { FlatList } from 'react-native'
+import { ListItem, Button } from 'react-native-elements'
 import PropTypes from 'prop-types'
+import Item from '@components/Item'
 import styles from './styles'
 
 const {
   list,
   container,
-  item,
-  inner,
-  itemComplete,
-  itemNumber,
-  itemNumberComplete,
-  itemText,
-  itemTextComplete,
   buttonContainer,
   deleteBtn
 } = styles
 
-const { Swipeable, Content } = ListItem
+const { Swipeable } = ListItem
 const icon = { name: 'delete', color: 'white' }
 
 const List = ({ items, setItems }) => {
@@ -44,10 +38,6 @@ const List = ({ items, setItems }) => {
       renderItem={data => {
         const { index, item: { value, isComplete } } = data
 
-        const content = isComplete ? itemComplete : item
-        const number = isComplete ? itemNumberComplete : itemNumber
-        const task = isComplete ? itemTextComplete : itemText
-
         return (
           <Swipeable
             onPress={() => handleOnComplete(index)}
@@ -60,18 +50,13 @@ const List = ({ items, setItems }) => {
                 buttonStyle={deleteBtn}
                 onPress={() => handleOnDelete(index)}
               />
-            }
+          }
           >
-            <Content style={content}>
-              <View style={inner}>
-                <Text style={number}>{index + 1}</Text>
-                <Text style={task} numberOfLines={1}>{value}</Text>
-                <CheckBox
-                  disabled
-                  checked={isComplete}
-                />
-              </View>
-            </Content>
+            <Item
+              index={index}
+              value={value}
+              isComplete={isComplete}
+            />
           </Swipeable>
         )
       }}
