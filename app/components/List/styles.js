@@ -4,20 +4,28 @@ import theme from '@assets/styles/theme'
 
 const itemBgColor = palette.gray[10]
 const itemHighlightColor = palette.primary
+const itemCompleteColor = palette.neutral
 const radius = theme.radius.sm
-const spacingSM = theme.spacing.sm
 const spacingMD = theme.spacing.md
 const spacingLG = theme.spacing.lg
+const deleteBtnBgColor = palette.danger
 
 const itemStyles = {
-  alignItems: 'center',
   backgroundColor: itemBgColor,
   borderLeftColor: itemHighlightColor,
   borderLeftWidth: radius,
   borderRadius: radius,
-  flexDirection: 'row',
-  marginBottom: spacingMD,
-  paddingVertical: spacingSM
+  padding: 0
+}
+
+const itemNumberStyles = {
+  color: itemHighlightColor,
+  flexBasis: 20,
+  fontSize: 18,
+  fontWeight: 'bold',
+  marginLeft: spacingMD,
+  marginRight: spacingMD,
+  minWidth: 20
 }
 
 const styles = StyleSheet.create({
@@ -27,23 +35,34 @@ const styles = StyleSheet.create({
     paddingVertical: spacingMD
   },
 
+  container: {
+    borderBottomWidth: 4,
+    borderColor: 'white',
+    borderTopWidth: 4,
+    padding: 0
+  },
+
   item: {
     ...itemStyles
   },
 
   itemComplete: {
     ...itemStyles,
-    opacity: 0.5
+    borderLeftColor: itemCompleteColor
+  },
+
+  inner: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
 
   itemNumber: {
-    color: itemHighlightColor,
-    flexBasis: 20,
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginLeft: spacingMD,
-    marginRight: spacingMD,
-    minWidth: 20
+    ...itemNumberStyles
+  },
+
+  itemNumberComplete: {
+    ...itemNumberStyles,
+    color: itemCompleteColor
   },
 
   itemText: {
@@ -53,7 +72,25 @@ const styles = StyleSheet.create({
 
   itemTextComplete: {
     flex: 1,
-    textDecorationLine: 'line-through'
+    textDecorationLine: 'line-through',
+    opacity: 0.5
+  },
+
+  buttonContainer: {
+    justifyContent: 'center'
+  },
+
+  deleteBtn: {
+    backgroundColor: deleteBtnBgColor,
+    borderRadius: theme.borderRadius,
+    borderTopRightRadius: theme.radius.sm,
+    color: palette.white,
+    height: 50,
+    paddingRight: 20
+  },
+
+  deleteBtnText: {
+    color: palette.white
   }
 })
 
