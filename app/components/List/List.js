@@ -51,7 +51,6 @@ const List = ({ items, setItems }) => {
         return (
           <Swipeable
             onPress={() => handleOnComplete(index)}
-            onLongPress={() => handleOnComplete(index)}
             containerStyle={container}
             rightStyle={buttonContainer}
             rightContent={
@@ -66,11 +65,10 @@ const List = ({ items, setItems }) => {
             <Content style={content}>
               <View style={inner}>
                 <Text style={number}>{index + 1}</Text>
-                <Text style={task}>{value}</Text>
+                <Text style={task} numberOfLines={1}>{value}</Text>
                 <CheckBox
                   disabled
                   checked={isComplete}
-                  testID='Toggle Complete'
                 />
               </View>
             </Content>
