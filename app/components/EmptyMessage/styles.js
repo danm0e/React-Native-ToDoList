@@ -4,7 +4,7 @@ import theme from '@assets/styles/theme'
 
 const spacingMD = theme.spacing.md
 const emptyHeaderColor = palette.primary
-const emptyTextColor = palette.gray[50]
+const emptyTextColor = palette.gray[60]
 
 const styles = StyleSheet.create({
   empty: {

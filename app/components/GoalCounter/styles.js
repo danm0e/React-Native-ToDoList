@@ -36,6 +36,10 @@ const styles = StyleSheet.create({
     color: highlightColor,
     fontWeight: 'bold',
     paddingHorizontal: spacingSM
+  },
+
+  icon: {
+    color: palette.gray[50]
   }
 })
 

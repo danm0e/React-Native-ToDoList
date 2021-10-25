@@ -4,39 +4,38 @@ import { Icon } from 'react-native-elements'
 import PropTypes from 'prop-types'
 import styles from './styles'
 
-const { wrapper, content, message, highlight } = styles
+const { wrapper, content, message, highlight, icon } = styles
 
 const GoalCounter = ({ goals }) => {
   const totalGoals = goals.length
   const totalComplete = goals.filter(goal => goal.isComplete === true).length
   const allComplete = totalComplete === totalGoals
 
-  const Message = () => (
-    allComplete
-      ? (
-        <>
+  if (allComplete) {
+    return (
+      <View style={wrapper}>
+        <View style={content}>
           <Text style={highlight}>All done!</Text>
           <Icon
             name='emoji-events'
             type='material'
-            color='#999'
+            color={icon.color}
           />
-        </>
-        )
-      : (
-        <>
-          <Text style={highlight}>{totalComplete}</Text>
-          <Text style={message}>of</Text>
-          <Text style={highlight}>{totalGoals}</Text>
-          <Text style={message}>complete</Text>
-        </>
-        )
-  )
+        </View>
+      </View>
+    )
+  }
 
   return (
     <View style={wrapper}>
-      <View style={content}>
-        <Message />
+      <View
+        style={content}
+        accessibilityLabel={`${totalComplete} of ${totalGoals}`}
+      >
+        <Text style={highlight}>{totalComplete}</Text>
+        <Text style={message}>of</Text>
+        <Text style={highlight}>{totalGoals}</Text>
+        <Text style={message}>complete</Text>
       </View>
     </View>
   )
