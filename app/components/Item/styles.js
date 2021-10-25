@@ -20,7 +20,6 @@ const itemStyles = {
 
 const itemNumberStyles = {
   color: itemHighlightColor,
-  flexBasis: 20,
   fontSize: 18,
   fontWeight: 'bold',
   marginLeft: spacingMD,
