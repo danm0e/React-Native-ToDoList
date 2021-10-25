@@ -1,20 +1,25 @@
 import React from 'react'
-import { Text, View, FlatList, TouchableOpacity } from 'react-native'
-import { CheckBox, Icon } from 'react-native-elements'
-import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { View, Text, FlatList } from 'react-native'
+import { CheckBox, ListItem, Button } from 'react-native-elements'
 import PropTypes from 'prop-types'
 import styles from './styles'
 
 const {
   list,
+  container,
   item,
+  inner,
   itemComplete,
   itemNumber,
+  itemNumberComplete,
   itemText,
   itemTextComplete,
-  deleteBtn,
-  deleteBtnText
+  buttonContainer,
+  deleteBtn
 } = styles
+
+const { Swipeable, Content } = ListItem
+const icon = { name: 'delete', color: 'white' }
 
 const List = ({ items, setItems }) => {
   const handleOnComplete = idx => {
@@ -31,20 +36,6 @@ const List = ({ items, setItems }) => {
     setItems(itemsCopy)
   }
 
-  const handleOnSwipe = idx => (
-    <TouchableOpacity onPress={() => handleOnDelete(idx)}>
-      <View style={deleteBtn}>
-        <Icon
-          color='#FFF'
-          name='delete-forever'
-          size={25}
-          type='material'
-        />
-        <Text style={deleteBtnText}>Delete</Text>
-      </View>
-    </TouchableOpacity>
-  )
-
   return (
     <FlatList
       style={list}
@@ -53,17 +44,36 @@ const List = ({ items, setItems }) => {
       renderItem={data => {
         const { index, item: { value, isComplete } } = data
 
+        const content = isComplete ? itemComplete : item
+        const number = isComplete ? itemNumberComplete : itemNumber
+        const task = isComplete ? itemTextComplete : itemText
+
         return (
-          <Swipeable renderRightActions={() => handleOnSwipe(index)}>
-            <View style={isComplete ? itemComplete : item}>
-              <Text style={itemNumber}>{index + 1}</Text>
-              <Text style={isComplete ? itemTextComplete : itemText}>{value}</Text>
-              <CheckBox
-                checked={isComplete}
-                onPress={() => handleOnComplete(index)}
-                testID='Toggle Complete'
+          <Swipeable
+            onPress={() => handleOnComplete(index)}
+            onLongPress={() => handleOnComplete(index)}
+            containerStyle={container}
+            rightStyle={buttonContainer}
+            rightContent={
+              <Button
+                title='Delete'
+                icon={icon}
+                buttonStyle={deleteBtn}
+                onPress={() => handleOnDelete(index)}
               />
-            </View>
+            }
+          >
+            <Content style={content}>
+              <View style={inner}>
+                <Text style={number}>{index + 1}</Text>
+                <Text style={task}>{value}</Text>
+                <CheckBox
+                  disabled
+                  checked={isComplete}
+                  testID='Toggle Complete'
+                />
+              </View>
+            </Content>
           </Swipeable>
         )
       }}
