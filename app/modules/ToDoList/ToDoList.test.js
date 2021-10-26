@@ -2,6 +2,8 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
 import ToDoList from './ToDoList'
 
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
+
 describe('modules/ToDoList', () => {
   let utils
 
@@ -22,8 +24,8 @@ describe('modules/ToDoList', () => {
 
   describe('When the Add Goal button is pressed', () => {
     test('It should render the AddGoal view', () => {
-      const { getByText, getByTestId } = utils
-      const addGoalButton = getByText(/Add Goal/i)
+      const { getByLabelText, getByTestId } = utils
+      const addGoalButton = getByLabelText(/Add Goal/i)
       fireEvent.press(addGoalButton)
 
       const modal = getByTestId(/AddGoal modal/i)

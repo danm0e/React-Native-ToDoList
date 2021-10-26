@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { View, Button } from 'react-native'
+import { View } from 'react-native'
+import { FAB as FaButton } from 'react-native-elements'
 import AddGoal from '@views/AddGoal'
 import List from '@components/List'
 import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
 import styles from './styles'
+
+const fabIcon = { name: 'add', type: 'material', color: 'white' }
 
 const ToDoList = () => {
   const [newGoal, setNewGoal] = useState('')
@@ -19,7 +22,7 @@ const ToDoList = () => {
   }
 
   // only add the goal if it's not empty or doesn't already exist
-  const isValidGoal = newGoal.length && !goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase())
+  const isValidGoal = newGoal.length && !goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
 
   const handleOnAdd = () => {
     if (!isValidGoal) {
@@ -30,7 +33,7 @@ const ToDoList = () => {
       ...currentGoals,
       {
         id: Math.random().toString(), // mocking an id for key
-        value: newGoal,
+        value: newGoal.trim(),
         isComplete: false
       }
     ])
@@ -41,7 +44,6 @@ const ToDoList = () => {
 
   return (
     <View style={styles.container}>
-      <Button title='Add goal' onPress={() => setModalOpen(true)} />
       <AddGoal
         value={newGoal}
         onChange={handleOnChange}
@@ -49,14 +51,25 @@ const ToDoList = () => {
         onCancel={handleOnCancel}
         visible={modalOpen}
       />
-      {goals.length
-        ? (
-          <>
-            <GoalCounter goals={goals} />
-            <List items={goals} setItems={setGoals} />
-          </>
-          )
-        : <EmptyMessage />}
+
+      {
+        goals.length
+          ? (
+            <>
+              <GoalCounter goals={goals} />
+              <List items={goals} setItems={setGoals} />
+            </>
+            )
+          : <EmptyMessage />
+      }
+
+      <FaButton
+        placement='right'
+        onPress={() => setModalOpen(true)}
+        icon={fabIcon}
+        color={styles.faButton.color}
+        accessibilityLabel='Add Goal'
+      />
     </View>
   )
 }

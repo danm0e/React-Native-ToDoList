@@ -7,11 +7,11 @@ const spacingMD = theme.spacing.md
 const themeRadius = theme.radius.md
 
 const wrapperBgColor = palette.secondary
-const headerColor = palette.primary
+const headerColor = palette.white
 const inputBgColor = palette.lowlight
 const inputTextColor = palette.white
 const inputPlaceholderColor = palette.gray[70]
-const iconColor = palette.white
+const iconColor = palette.primary
 const addButtonColor = palette.primary
 const cancelButtonColor = palette.danger
 

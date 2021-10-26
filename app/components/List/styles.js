@@ -8,7 +8,6 @@ const deleteBtnBgColor = palette.danger
 
 const styles = StyleSheet.create({
   list: {
-    height: '100%',
     paddingHorizontal: spacingLG,
     paddingVertical: spacingMD
   },

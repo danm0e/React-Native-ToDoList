@@ -1,8 +1,14 @@
 import { StyleSheet } from 'react-native'
+import { palette } from '@assets/styles/colors'
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 50
+    paddingVertical: 50,
+    height: '100%'
+  },
+
+  faButton: {
+    color: palette.tertiary
   }
 })
 

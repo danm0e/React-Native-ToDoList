@@ -1,6 +1,7 @@
 const palette = {
   primary: '#1D8DEE',
   secondary: '#1B2737',
+  tertiary: '#8549a7',
   lowlight: '#151E29',
   highlight: '#FFD700',
   neutral: '#CCCCCC',
