@@ -14,11 +14,15 @@ const ToDoList = () => {
     setNewGoal(value)
   }
 
-  const isValidGoal = newGoal.length && !goals.find(goal => goal.value === newGoal)
+  // only add the goal if it's not empty or doesn't already exist
+  const isValidGoal = newGoal.length && !goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase())
 
   const handleOnAdd = () => {
-    // only add the goal if it's not empty or doesn't already exist
-    isValidGoal && setGoals(currentGoals => [
+    if (!isValidGoal) {
+      return
+    }
+
+    setGoals(currentGoals => [
       ...currentGoals,
       {
         id: Math.random().toString(), // mocking an id for key
@@ -26,6 +30,7 @@ const ToDoList = () => {
         isComplete: false
       }
     ])
+    setNewGoal('')
   }
 
   return (
