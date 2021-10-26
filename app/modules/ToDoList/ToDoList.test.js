@@ -21,17 +21,41 @@ describe('modules/ToDoList', () => {
   })
 
   describe('When a goal is added', () => {
-    test('It should render the correct item', () => {
-      const { getByPlaceholderText, getByTestId, getByText } = utils
+    beforeEach(() => {
+      const { getByPlaceholderText, getByTestId } = utils
 
       const input = getByPlaceholderText(/Add a goal/i)
       fireEvent.changeText(input, 'some goal')
 
       const button = getByTestId(/Add button/i)
       fireEvent.press(button)
+    })
 
-      const goal = getByText(/some goal/i)
-      expect(goal).toBeDefined()
+    describe('And the goal is valid', () => {
+      test('It should render the correct item', async () => {
+        const { getByText, getByA11yLabel } = utils
+
+        const goal = getByText(/some goal/i)
+        expect(goal).toBeDefined()
+
+        const counter = getByA11yLabel(/0 of 1/i)
+        expect(counter).toBeDefined()
+      })
+    })
+
+    describe('And the goal is not valid', () => {
+      test('It should not render a new item', async () => {
+        const { getByPlaceholderText, getByTestId, getByA11yLabel } = utils
+
+        const input = getByPlaceholderText(/Add a goal/i)
+        const button = getByTestId(/Add button/i)
+
+        fireEvent.changeText(input, 'some goal') // goal already exists
+        fireEvent.press(button)
+
+        const counter = getByA11yLabel(/0 of 1/i)
+        expect(counter).toBeDefined()
+      })
     })
   })
 })
