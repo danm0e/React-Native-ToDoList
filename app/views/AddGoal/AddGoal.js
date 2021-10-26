@@ -15,9 +15,9 @@ const {
   addButton
 } = styles
 
-const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
+const AddGoalView = ({ value, onChange, onAdd, onCancel, isVisible }) => (
   <Modal
-    visible={visible}
+    visible={isVisible}
     animationType='slide'
     testID='AddGoal modal'
   >
@@ -29,9 +29,11 @@ const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
         size={40}
         style={icon}
       />
+
       <Text style={header}>
         What do you need to do?
       </Text>
+
       <TextInput
         style={input}
         placeholder='Add a Goal'
@@ -41,6 +43,7 @@ const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
         // clearButtonMode='always'
         autoFocus
       />
+
       <View style={buttonRow}>
         <Button
           title='Cancel'
@@ -48,6 +51,7 @@ const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
           color={cancelButton.color}
           testID='Cancel button'
         />
+
         <Button
           title='Add'
           onPress={onAdd}
@@ -59,12 +63,12 @@ const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
   </Modal>
 )
 
-Header.propTypes = {
+AddGoalView.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  visible: PropTypes.bool
+  isVisible: PropTypes.bool
 }
 
-export default Header
+export default AddGoalView

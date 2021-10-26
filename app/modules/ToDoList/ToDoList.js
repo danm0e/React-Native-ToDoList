@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { FAB as FaButton } from 'react-native-elements'
 import AddGoal from '@views/AddGoal'
@@ -6,6 +6,7 @@ import List from '@components/List'
 import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
 import styles from './styles'
+import Toast from 'react-native-toast-message'
 
 const fabIcon = { name: 'add', type: 'material', color: 'white' }
 
@@ -13,6 +14,21 @@ const ToDoList = () => {
   const [newGoal, setNewGoal] = useState('')
   const [goals, setGoals] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [showToast, setShowToast] = useState(false)
+
+  useEffect(() => {
+    showToast && Toast.show({
+      type: 'default',
+      position: 'bottom',
+      topOffset: 50,
+      visibilityTime: 2000,
+      onHide: () => setShowToast(false),
+      text1: 'Oops!',
+      props: {
+        text2: 'That goal is already on the list!'
+      }
+    })
+  }, [showToast])
 
   const handleOnChange = value => setNewGoal(value)
 
@@ -26,6 +42,8 @@ const ToDoList = () => {
 
   const handleOnAdd = () => {
     if (!isValidGoal) {
+      handleOnReset()
+      setShowToast(true)
       return
     }
 
@@ -49,7 +67,7 @@ const ToDoList = () => {
         onChange={handleOnChange}
         onAdd={handleOnAdd}
         onCancel={handleOnCancel}
-        visible={modalOpen}
+        isVisible={modalOpen}
       />
 
       {
