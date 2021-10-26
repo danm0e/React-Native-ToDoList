@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Button } from 'react-native'
-import Header from '@components/Header'
+import AddGoal from '@views/AddGoal'
 import List from '@components/List'
 import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
@@ -42,7 +42,7 @@ const ToDoList = () => {
   return (
     <View style={styles.container}>
       <Button title='Add goal' onPress={() => setModalOpen(true)} />
-      <Header
+      <AddGoal
         value={newGoal}
         onChange={handleOnChange}
         onAdd={handleOnAdd}

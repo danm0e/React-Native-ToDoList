@@ -7,6 +7,7 @@ const spacingLG = theme.spacing.lg
 const contentBorderColor = palette.gray[40]
 const messageColor = palette.gray[50]
 const highlightColor = palette.primary
+const iconColor = palette.highLight
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    color: palette.gray[50]
+    color: iconColor
   }
 })
 

@@ -2,6 +2,7 @@ const palette = {
   primary: '#1D8DEE',
   secondary: '#1B2737',
   lowLight: '#151E29',
+  highLight: '#FFD700',
   neutral: '#CCCCCC',
   danger: '#D90202',
   black: '#000000',
