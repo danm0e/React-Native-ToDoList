@@ -20,6 +20,29 @@ describe('modules/ToDoList', () => {
     })
   })
 
+  describe('When the Add Goal button is pressed', () => {
+    test('It should render the AddGoal view', () => {
+      const { getByText, getByTestId } = utils
+      const addGoalButton = getByText(/Add Goal/i)
+      fireEvent.press(addGoalButton)
+
+      const modal = getByTestId(/AddGoal modal/i)
+      expect(modal.props.visible).toBe(true)
+    })
+  })
+
+  describe('When the modal cancel button is pressed', () => {
+    test('It should hide the AddGoal view', () => {
+      const { getByText, getByTestId } = utils
+      const cancelButton = getByText(/Cancel/i)
+
+      fireEvent.press(cancelButton)
+
+      const modalClosed = getByTestId(/AddGoal modal/i)
+      expect(modalClosed.props.visible).toBe(false)
+    })
+  })
+
   describe('When a goal is added', () => {
     beforeEach(() => {
       const { getByPlaceholderText, getByTestId } = utils

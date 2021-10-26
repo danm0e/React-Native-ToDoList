@@ -19,6 +19,7 @@ const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
   <Modal
     visible={visible}
     animationType='slide'
+    testID='AddGoal modal'
   >
     <View style={wrapper}>
       <Icon
@@ -61,7 +62,9 @@ const Header = ({ value, onChange, onAdd, onCancel, visible }) => (
 Header.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired
+  onAdd: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  visible: PropTypes.bool
 }
 
 export default Header

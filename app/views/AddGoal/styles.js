@@ -8,7 +8,7 @@ const themeRadius = theme.radius.md
 
 const wrapperBgColor = palette.secondary
 const headerColor = palette.primary
-const inputBgColor = palette.lowLight
+const inputBgColor = palette.lowlight
 const inputTextColor = palette.white
 const inputPlaceholderColor = palette.gray[70]
 const iconColor = palette.white
