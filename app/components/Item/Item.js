@@ -19,7 +19,7 @@ const Item = ({ index, value, isComplete }) => {
   const task = isComplete ? itemTextComplete : itemText
 
   return (
-    <View style={wrapper}>
+    <View style={wrapper} accessibilityLabel='Goal item' isComplete={isComplete}>
       <Text style={number}>{index + 1}</Text>
       <Text style={task} numberOfLines={1}>{value}</Text>
       <CheckBox checked={isComplete} disabled />

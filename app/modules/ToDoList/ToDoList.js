@@ -37,13 +37,13 @@ const ToDoList = () => {
     setNewGoal('')
   }
 
-  const isDuplicate = goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
-
-  const handleOnAdd = () => {
+  const handleOnAdd = async () => {
     // do nothing if empty
     if (!newGoal.length) {
       return
     }
+
+    const isDuplicate = goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
 
     // show error if duplicate
     if (isDuplicate) {
@@ -52,15 +52,31 @@ const ToDoList = () => {
       return
     }
 
-    setGoals(currentGoals => [
-      ...currentGoals,
+    const newGoals = [
+      ...goals,
       {
-        id: Math.random().toString(), // mocking an id for key
+        id: Math.random().toString(),
         value: newGoal.trim(),
         isComplete: false
       }
-    ])
+    ]
+
+    setGoals(newGoals)
     handleOnReset()
+  }
+
+  const handleOnComplete = idx => {
+    const goalsCopy = [...goals]
+    const updatedGoal = goalsCopy[idx]
+    updatedGoal.isComplete = !updatedGoal.isComplete
+    goalsCopy.splice(idx, 1, updatedGoal)
+    setGoals(goalsCopy)
+  }
+
+  const handleOnDelete = idx => {
+    const goalsCopy = [...goals]
+    goalsCopy.splice(idx, 1)
+    setGoals(goalsCopy)
   }
 
   const handleOnCancel = () => handleOnReset()
@@ -80,7 +96,11 @@ const ToDoList = () => {
           ? (
             <>
               <GoalCounter goals={goals} />
-              <List items={goals} setItems={setGoals} />
+              <List
+                items={goals}
+                onComplete={handleOnComplete}
+                onDelete={handleOnDelete}
+              />
             </>
             )
           : <EmptyMessage />
