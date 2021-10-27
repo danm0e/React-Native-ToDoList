@@ -5,10 +5,10 @@ import styles from './styles'
 const EmptyMessage = () => (
   <View style={styles.empty}>
     <Text style={styles.emptyHeader}>
-      No goals!
+      No goals
     </Text>
     <Text style={styles.emptyText}>
-      Please add some to see them here.
+      Let's get started!
     </Text>
   </View>
 )
