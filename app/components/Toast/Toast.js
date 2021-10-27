@@ -4,23 +4,25 @@ import { Icon } from 'react-native-elements'
 import PropTypes from 'prop-types'
 import styles from './styles'
 
-const { wrapper, icon, header, message } = styles
+const { wrapper, iconStyle, heading, message } = styles
 
-const Toast = ({ text1, props }) => (
+const Toast = ({ icon, header, text }) => (
   <View style={wrapper}>
     <Icon
-      name='error-outline'
+      name={icon}
       type='material'
-      color={icon.color}
-      style={icon}
+      color={iconStyle.color}
+      style={iconStyle}
     />
-    <Text style={header}>{text1}</Text>
-    <Text style={message}>{props.text2}</Text>
+    <Text style={heading}>{header}</Text>
+    <Text style={message}>{text}</Text>
   </View>
 )
 
 Toast.propTypes = {
-  text1: PropTypes.string.isRequired
+  icon: PropTypes.string,
+  header: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 }
 
 export default Toast

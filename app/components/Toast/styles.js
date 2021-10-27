@@ -21,12 +21,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 
-  icon: {
+  iconStyle: {
     marginRight: spacingSM,
     color: highlightColor
   },
 
-  header: {
+  heading: {
     color: highlightColor,
     fontWeight: 'bold',
     marginRight: spacingMD

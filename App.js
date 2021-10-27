@@ -4,7 +4,13 @@ import ToDoList from '@modules/ToDoList'
 import CustomToast from '@components/Toast'
 
 const toastConfig = {
-  default: ({ text1, props }) => <CustomToast text1={text1} props={props} />
+  default: ({ text1, props, ...rest }) => (
+    <CustomToast
+      icon='error-outline'
+      header={text1}
+      text={props.text2}
+    />
+  )
 }
 
 const App = () => (

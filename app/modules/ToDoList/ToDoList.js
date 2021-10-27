@@ -19,13 +19,13 @@ const ToDoList = () => {
   useEffect(() => {
     showToast && Toast.show({
       type: 'default',
-      position: 'bottom',
+      position: 'top',
       topOffset: 50,
       visibilityTime: 2000,
       onHide: () => setShowToast(false),
       text1: 'Oops!',
       props: {
-        text2: 'That goal is already on the list!'
+        text2: 'We already have that goal!'
       }
     })
   }, [showToast])
@@ -37,11 +37,16 @@ const ToDoList = () => {
     setNewGoal('')
   }
 
-  // only add the goal if it's not empty or doesn't already exist
-  const isValidGoal = newGoal.length && !goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
+  const isDuplicate = goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
 
   const handleOnAdd = () => {
-    if (!isValidGoal) {
+    // do nothing if empty
+    if (!newGoal.length) {
+      return
+    }
+
+    // show error if duplicate
+    if (isDuplicate) {
       handleOnReset()
       setShowToast(true)
       return

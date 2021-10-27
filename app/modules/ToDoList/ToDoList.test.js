@@ -1,8 +1,13 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
+// import Toast from 'react-native-toast-message'
 import ToDoList from './ToDoList'
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
+
+jest.mock('react-native-toast-message', () => ({
+  show: jest.fn()
+}))
 
 describe('modules/ToDoList', () => {
   let utils
@@ -22,7 +27,7 @@ describe('modules/ToDoList', () => {
     })
   })
 
-  describe('When the Add Goal button is pressed', () => {
+  describe('When the plus button is pressed', () => {
     test('It should render the AddGoal view', () => {
       const { getByLabelText, getByTestId } = utils
       const addGoalButton = getByLabelText(/Add Goal/i)
@@ -33,7 +38,7 @@ describe('modules/ToDoList', () => {
     })
   })
 
-  describe('When the modal cancel button is pressed', () => {
+  describe('When the cancel button is pressed', () => {
     test('It should hide the AddGoal view', () => {
       const { getByText, getByTestId } = utils
       const cancelButton = getByText(/Cancel/i)
@@ -56,8 +61,8 @@ describe('modules/ToDoList', () => {
       fireEvent.press(button)
     })
 
-    describe('And the goal is valid', () => {
-      test('It should render the correct item', async () => {
+    describe('And the goal is new', () => {
+      test('It should add the correct item', () => {
         const { getByText, getByA11yLabel } = utils
 
         const goal = getByText(/some goal/i)
@@ -68,14 +73,29 @@ describe('modules/ToDoList', () => {
       })
     })
 
-    describe('And the goal is not valid', () => {
-      test('It should not render a new item', async () => {
+    describe('And the goal is a duplicate', () => {
+      test('It should not add a new item', async () => {
         const { getByPlaceholderText, getByTestId, getByA11yLabel } = utils
 
         const input = getByPlaceholderText(/Add a goal/i)
         const button = getByTestId(/Add button/i)
 
         fireEvent.changeText(input, 'some goal') // goal already exists
+        fireEvent.press(button)
+
+        const counter = getByA11yLabel(/0 of 1/i)
+        expect(counter).toBeDefined()
+      })
+    })
+
+    describe('And the goal is empty', () => {
+      test('It should not add a new item', () => {
+        const { getByPlaceholderText, getByTestId, getByA11yLabel } = utils
+
+        const input = getByPlaceholderText(/Add a goal/i)
+        const button = getByTestId(/Add button/i)
+
+        fireEvent.changeText(input, '')
         fireEvent.press(button)
 
         const counter = getByA11yLabel(/0 of 1/i)
