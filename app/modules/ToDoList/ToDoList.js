@@ -7,28 +7,49 @@ import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
 import styles from './styles'
 import Toast from 'react-native-toast-message'
+import dataStore from '@services/dataStore'
 
 const fabIcon = { name: 'add', type: 'material', color: 'white' }
+const toastProps = {
+  type: 'default',
+  position: 'top',
+  topOffset: 50,
+  visibilityTime: 2000,
+  text1: 'Oops!',
+  props: {
+    text2: 'We already have that goal!'
+  }
+}
 
 const ToDoList = () => {
   const [newGoal, setNewGoal] = useState('')
   const [goals, setGoals] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
-    showToast && Toast.show({
-      type: 'default',
-      position: 'top',
-      topOffset: 50,
-      visibilityTime: 2000,
-      onHide: () => setShowToast(false),
-      text1: 'Oops!',
-      props: {
-        text2: 'We already have that goal!'
+    const fetchGoals = async () => {
+      try {
+        const storedGoals = await dataStore.get()
+        storedGoals && setGoals(storedGoals)
+      } catch (e) {
+        console.log(e)
       }
-    })
-  }, [showToast])
+    }
+
+    fetchGoals()
+  }, [])
+
+  useEffect(() => {
+    const updateGoals = async () => {
+      try {
+        await dataStore.set(goals)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
+    updateGoals()
+  }, [goals])
 
   const handleOnChange = value => setNewGoal(value)
 
@@ -37,18 +58,18 @@ const ToDoList = () => {
     setNewGoal('')
   }
 
-  const handleOnAdd = async () => {
+  const handleOnAdd = () => {
     // do nothing if empty
     if (!newGoal.length) {
       return
     }
 
+    // show error if duplicate
     const isDuplicate = goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
 
-    // show error if duplicate
     if (isDuplicate) {
       handleOnReset()
-      setShowToast(true)
+      Toast.show(toastProps)
       return
     }
 
