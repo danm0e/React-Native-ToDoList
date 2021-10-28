@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { FAB as FaButton } from 'react-native-elements'
+import useStorage from '@hooks/UseStorage'
 import AddGoal from '@views/AddGoal'
 import List from '@components/List'
 import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
 import styles from './styles'
 import Toast from 'react-native-toast-message'
-import dataStore from '@services/dataStore'
 
 const fabIcon = { name: 'add', type: 'material', color: 'white' }
 const toastProps = {
@@ -25,31 +25,15 @@ const ToDoList = () => {
   const [newGoal, setNewGoal] = useState('')
   const [goals, setGoals] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [storedValue, setStoredValue] = useStorage('goals')
 
   useEffect(() => {
-    const fetchGoals = async () => {
-      try {
-        const storedGoals = await dataStore.get()
-        storedGoals && setGoals(storedGoals)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    fetchGoals()
+    setGoals(storedValue)
   }, [])
 
-  useEffect(() => {
-    const updateGoals = async () => {
-      try {
-        await dataStore.set(goals)
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    updateGoals()
-  }, [goals])
+  // useEffect(() => {
+  //   setStoredValue(goals)
+  // }, [goals])
 
   const handleOnChange = value => setNewGoal(value)
 
@@ -83,6 +67,7 @@ const ToDoList = () => {
     ]
 
     setGoals(newGoals)
+    setStoredValue(newGoals)
     handleOnReset()
   }
 
@@ -92,12 +77,14 @@ const ToDoList = () => {
     updatedGoal.isComplete = !updatedGoal.isComplete
     goalsCopy.splice(idx, 1, updatedGoal)
     setGoals(goalsCopy)
+    setStoredValue(goalsCopy)
   }
 
   const handleOnDelete = idx => {
     const goalsCopy = [...goals]
     goalsCopy.splice(idx, 1)
     setGoals(goalsCopy)
+    setStoredValue(goalsCopy)
   }
 
   const handleOnCancel = () => handleOnReset()

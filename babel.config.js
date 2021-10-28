@@ -26,7 +26,8 @@ module.exports = function (api) {
             '@components': './app/components',
             '@views': './app/views',
             '@assets': './app/assets',
-            '@services': './app/services'
+            '@services': './app/services',
+            '@hooks': './app/hooks'
           }
         }
       ]
