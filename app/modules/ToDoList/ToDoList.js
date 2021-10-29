@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
 import { FAB as FaButton } from 'react-native-elements'
-import useStorage from '@hooks/UseStorage'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import AddGoal from '@views/AddGoal'
 import List from '@components/List'
 import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
-import styles from './styles'
 import Toast from 'react-native-toast-message'
+import styles from './styles'
 
 const fabIcon = { name: 'add', type: 'material', color: 'white' }
 const toastProps = {
@@ -25,15 +25,22 @@ const ToDoList = () => {
   const [newGoal, setNewGoal] = useState('')
   const [goals, setGoals] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const [storedValue, setStoredValue] = useStorage('goals')
+
+  const { getItem, setItem } = useAsyncStorage('goals')
 
   useEffect(() => {
-    setGoals(storedValue)
+    getFromStorage()
   }, [])
 
-  // useEffect(() => {
-  //   setStoredValue(goals)
-  // }, [goals])
+  const getFromStorage = async () => {
+    const goals = await getItem()
+    setGoals(JSON.parse(goals))
+  }
+
+  const setToStorage = async newGoals => {
+    await setItem(JSON.stringify(newGoals))
+    setGoals(newGoals)
+  }
 
   const handleOnChange = value => setNewGoal(value)
 
@@ -67,7 +74,7 @@ const ToDoList = () => {
     ]
 
     setGoals(newGoals)
-    setStoredValue(newGoals)
+    setToStorage(newGoals)
     handleOnReset()
   }
 
@@ -76,15 +83,17 @@ const ToDoList = () => {
     const updatedGoal = goalsCopy[idx]
     updatedGoal.isComplete = !updatedGoal.isComplete
     goalsCopy.splice(idx, 1, updatedGoal)
+
     setGoals(goalsCopy)
-    setStoredValue(goalsCopy)
+    setToStorage(goalsCopy)
   }
 
   const handleOnDelete = idx => {
     const goalsCopy = [...goals]
     goalsCopy.splice(idx, 1)
+
     setGoals(goalsCopy)
-    setStoredValue(goalsCopy)
+    setToStorage(goalsCopy)
   }
 
   const handleOnCancel = () => handleOnReset()
