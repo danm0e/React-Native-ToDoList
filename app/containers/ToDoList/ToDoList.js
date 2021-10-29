@@ -30,9 +30,9 @@ const ToDoList = () => {
     const fetchGoals = async () => {
       try {
         const storedGoals = await dataStore.get()
-        storedGoals && setGoals(storedGoals)
+        storedGoals.length && setGoals(storedGoals)
       } catch (e) {
-        console.log(e)
+        // handle errors...
       }
     }
 
@@ -44,7 +44,7 @@ const ToDoList = () => {
       try {
         await dataStore.set(goals)
       } catch (e) {
-        console.log(e)
+        // handle errors...
       }
     }
 
