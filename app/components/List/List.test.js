@@ -7,13 +7,20 @@ const mockItems = [
   { id: 'some-id-2', value: 'some value 2', isComplete: false }
 ]
 
-const setItemsSpy = jest.fn()
+const onCompleteSpy = jest.fn()
+const onDeleteSpy = jest.fn()
 
 describe('components/List', () => {
   let utils
 
   beforeEach(() => {
-    utils = render(<List items={mockItems} setItems={setItemsSpy} />)
+    utils = render(
+      <List
+        items={mockItems}
+        onComplete={onCompleteSpy}
+        onDelete={onDeleteSpy}
+      />
+    )
   })
 
   afterEach(() => {
@@ -36,11 +43,8 @@ describe('components/List', () => {
 
       fireEvent.press(listItem)
 
-      expect(setItemsSpy).toHaveBeenCalledTimes(1)
-      expect(setItemsSpy).toHaveBeenCalledWith([
-        { id: 'some-id-1', value: 'some value 1', isComplete: false },
-        { id: 'some-id-2', value: 'some value 2', isComplete: false }
-      ])
+      expect(onCompleteSpy).toHaveBeenCalledTimes(1)
+      expect(onCompleteSpy).toHaveBeenCalledWith(0)
     })
   })
 
@@ -51,10 +55,8 @@ describe('components/List', () => {
 
       fireEvent.press(deleteBtn)
 
-      expect(setItemsSpy).toHaveBeenCalledTimes(1)
-      expect(setItemsSpy).toHaveBeenCalledWith([
-        { id: 'some-id-2', value: 'some value 2', isComplete: false }
-      ])
+      expect(onDeleteSpy).toHaveBeenCalledTimes(1)
+      expect(onDeleteSpy).toHaveBeenCalledWith(0)
     })
   })
 })

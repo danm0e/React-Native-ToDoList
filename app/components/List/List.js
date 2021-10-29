@@ -15,54 +15,38 @@ const {
 const { Swipeable } = ListItem
 const icon = { name: 'delete', color: 'white' }
 
-const List = ({ items, setItems }) => {
-  const handleOnComplete = idx => {
-    const itemsCopy = [...items]
-    const updatedGoal = itemsCopy[idx]
-    updatedGoal.isComplete = !updatedGoal.isComplete
-    itemsCopy.splice(idx, 1, updatedGoal)
-    setItems(itemsCopy)
-  }
+const List = ({ items, onComplete, onDelete }) => (
+  <FlatList
+    style={list}
+    data={items}
+    keyExtractor={goal => goal.id}
+    renderItem={data => {
+      const { index, item: { value, isComplete } } = data
 
-  const handleOnDelete = idx => {
-    const itemsCopy = [...items]
-    itemsCopy.splice(idx, 1)
-    setItems(itemsCopy)
-  }
-
-  return (
-    <FlatList
-      style={list}
-      data={items}
-      keyExtractor={goal => goal.id}
-      renderItem={data => {
-        const { index, item: { value, isComplete } } = data
-
-        return (
-          <Swipeable
-            onPress={() => handleOnComplete(index)}
-            containerStyle={container}
-            rightStyle={buttonContainer}
-            rightContent={
-              <Button
-                title='Delete'
-                icon={icon}
-                buttonStyle={deleteBtn}
-                onPress={() => handleOnDelete(index)}
-              />
-          }
-          >
-            <Item
-              index={index}
-              value={value}
-              isComplete={isComplete}
+      return (
+        <Swipeable
+          onPress={() => onComplete(index)}
+          containerStyle={container}
+          rightStyle={buttonContainer}
+          rightContent={
+            <Button
+              title='Delete'
+              icon={icon}
+              buttonStyle={deleteBtn}
+              onPress={() => onDelete(index)}
             />
-          </Swipeable>
-        )
-      }}
-    />
-  )
-}
+          }
+        >
+          <Item
+            index={index}
+            value={value}
+            isComplete={isComplete}
+          />
+        </Swipeable>
+      )
+    }}
+  />
+)
 
 List.propTypes = {
   items: PropTypes.arrayOf(
@@ -71,7 +55,8 @@ List.propTypes = {
       value: PropTypes.string.isRequired
     }).isRequired
   ).isRequired,
-  setItems: PropTypes.func.isRequired
+  onComplete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default List

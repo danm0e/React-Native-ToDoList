@@ -7,28 +7,49 @@ import GoalCounter from '@components/GoalCounter'
 import EmptyMessage from '@components/EmptyMessage'
 import styles from './styles'
 import Toast from 'react-native-toast-message'
+import dataStore from '@services/dataStore'
 
 const fabIcon = { name: 'add', type: 'material', color: 'white' }
+const toastProps = {
+  type: 'default',
+  position: 'top',
+  topOffset: 50,
+  visibilityTime: 2000,
+  text1: 'Oops!',
+  props: {
+    text2: 'We already have that goal!'
+  }
+}
 
 const ToDoList = () => {
   const [newGoal, setNewGoal] = useState('')
   const [goals, setGoals] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
-    showToast && Toast.show({
-      type: 'default',
-      position: 'top',
-      topOffset: 50,
-      visibilityTime: 2000,
-      onHide: () => setShowToast(false),
-      text1: 'Oops!',
-      props: {
-        text2: 'We already have that goal!'
+    const fetchGoals = async () => {
+      try {
+        const storedGoals = await dataStore.get()
+        storedGoals.length && setGoals(storedGoals)
+      } catch (e) {
+        // handle errors...
       }
-    })
-  }, [showToast])
+    }
+
+    fetchGoals()
+  }, [])
+
+  useEffect(() => {
+    const updateGoals = async () => {
+      try {
+        await dataStore.set(goals)
+      } catch (e) {
+        // handle errors...
+      }
+    }
+
+    updateGoals()
+  }, [goals])
 
   const handleOnChange = value => setNewGoal(value)
 
@@ -37,8 +58,6 @@ const ToDoList = () => {
     setNewGoal('')
   }
 
-  const isDuplicate = goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
-
   const handleOnAdd = () => {
     // do nothing if empty
     if (!newGoal.length) {
@@ -46,21 +65,39 @@ const ToDoList = () => {
     }
 
     // show error if duplicate
+    const isDuplicate = goals.find(goal => goal.value.toLowerCase() === newGoal.toLowerCase().trim())
+
     if (isDuplicate) {
       handleOnReset()
-      setShowToast(true)
+      Toast.show(toastProps)
       return
     }
 
-    setGoals(currentGoals => [
-      ...currentGoals,
+    const newGoals = [
+      ...goals,
       {
-        id: Math.random().toString(), // mocking an id for key
+        id: Math.random().toString(),
         value: newGoal.trim(),
         isComplete: false
       }
-    ])
+    ]
+
+    setGoals(newGoals)
     handleOnReset()
+  }
+
+  const handleOnComplete = idx => {
+    const goalsCopy = [...goals]
+    const updatedGoal = goalsCopy[idx]
+    updatedGoal.isComplete = !updatedGoal.isComplete
+    goalsCopy.splice(idx, 1, updatedGoal)
+    setGoals(goalsCopy)
+  }
+
+  const handleOnDelete = idx => {
+    const goalsCopy = [...goals]
+    goalsCopy.splice(idx, 1)
+    setGoals(goalsCopy)
   }
 
   const handleOnCancel = () => handleOnReset()
@@ -80,7 +117,11 @@ const ToDoList = () => {
           ? (
             <>
               <GoalCounter goals={goals} />
-              <List items={goals} setItems={setGoals} />
+              <List
+                items={goals}
+                onComplete={handleOnComplete}
+                onDelete={handleOnDelete}
+              />
             </>
             )
           : <EmptyMessage />

@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react-native'
-// import Toast from 'react-native-toast-message'
 import ToDoList from './ToDoList'
 
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
@@ -61,7 +60,7 @@ describe('modules/ToDoList', () => {
       fireEvent.press(button)
     })
 
-    describe('And the goal is new', () => {
+    describe('And the goal is valid', () => {
       test('It should add the correct item', () => {
         const { getByText, getByA11yLabel } = utils
 
@@ -70,6 +69,38 @@ describe('modules/ToDoList', () => {
 
         const counter = getByA11yLabel(/0 of 1/i)
         expect(counter).toBeDefined()
+      })
+
+      describe('When the goal is completed', () => {
+        test('It should toggle the completion state', () => {
+          const { getByLabelText } = utils
+          const goal = getByLabelText(/Goal item/i)
+
+          fireEvent.press(goal)
+
+          expect(goal.props.isComplete).toBe(true)
+        })
+      })
+
+      describe('When the goal is deleted', () => {
+        test('It should remove the correct item', () => {
+          const { getByPlaceholderText, getByTestId, getAllByText, queryAllByLabelText } = utils
+
+          const input = getByPlaceholderText(/Add a goal/i)
+          fireEvent.changeText(input, 'some new goal')
+
+          const button = getByTestId(/Add button/i)
+          fireEvent.press(button)
+
+          const goalsBefore = queryAllByLabelText(/Goal item/i)
+          expect(goalsBefore).toHaveLength(2)
+
+          const deleteBtn = getAllByText(/Delete/i)[0]
+          fireEvent.press(deleteBtn)
+
+          const goalsAfter = queryAllByLabelText(/Goal item/i)
+          expect(goalsAfter).toHaveLength(1)
+        })
       })
     })
 
