@@ -1,6 +1,6 @@
 import React from 'react'
 import Toast from 'react-native-toast-message'
-import ToDoList from '@modules/ToDoList'
+import ToDoList from '@containers/ToDoList'
 import CustomToast from '@components/Toast'
 
 const toastConfig = {

@@ -22,7 +22,7 @@ module.exports = function (api) {
             '.json'
           ],
           alias: {
-            '@modules': './app/modules',
+            '@containers': './app/containers',
             '@components': './app/components',
             '@views': './app/views',
             '@assets': './app/assets',
